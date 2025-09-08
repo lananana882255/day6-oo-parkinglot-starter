@@ -17,6 +17,7 @@ public class ParkingLot {
         if (ticket == null) {
             return null;
         }
-        return parkedCars.get(ticket);
+
+        return parkedCars.remove(ticket);
     }
 }

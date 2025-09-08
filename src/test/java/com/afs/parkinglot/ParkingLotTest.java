@@ -14,7 +14,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void Should_return_parked_car_when_fetch_given_a_parkingLot_with_a_parked_car_and_a_parking_ticket(){
+    public void Should_return_parked_car_when_fetch_car_given_a_parkingLot_with_a_parked_car_and_a_parking_ticket(){
         String carPlate="AAA1234";
         ParkingLot parkingLot=new ParkingLot();
         Car car=new Car(carPlate);
@@ -24,7 +24,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void Should_return_parked_cars_when_fetch_given_a_parkingLot_with_a_parked_car_and_parking_tickets(){
+    public void Should_return_parked_cars_when_fetch_car_given_a_parkingLot_with_a_parked_car_and_parking_tickets(){
         String carPlateA="AAA1234";
         String carPlateB="BBB1234";
         ParkingLot parkingLot=new ParkingLot();
@@ -55,5 +55,14 @@ public class ParkingLotTest {
         Ticket wrongTicket=new Ticket();
         Car parkedCar = parkingLot.fetch(wrongTicket);
         assertNull(parkedCar);
+    }
+    @Test
+    public void should_return_null_when_fetch_car_given_parking_lot_and_used_ticket() {
+        ParkingLot parkingLot = new ParkingLot();
+        Car car = new Car("AAA1234");
+        Ticket ticket = parkingLot.park(car);
+        parkingLot.fetch(ticket);
+        Car fetchedCar = parkingLot.fetch(ticket);
+        assertNull(fetchedCar);
     }
 }
