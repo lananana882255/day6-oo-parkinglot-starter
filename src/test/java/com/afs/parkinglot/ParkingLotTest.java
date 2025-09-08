@@ -3,6 +3,7 @@ package com.afs.parkinglot;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ParkingLotTest {
     @Test
@@ -85,5 +86,18 @@ public class ParkingLotTest {
         RuntimeException exception = assertThrows(RuntimeException.class,
                 () -> parkingLot.fetch(unrecognizedTicket));
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_return_error_message_when_park_car_given_parking_lot_without_any_position_and_car(){
+        ParkingLot parkingLot = new ParkingLot(1);
+        String carPlateA="AAA1234";
+        String carPlateB="BBB1234";
+        Car carA=new Car(carPlateA);
+        Car carB=new Car(carPlateB);
+        parkingLot.park(carA);
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> parkingLot.park(carB));
+        assertEquals("No available position.", exception.getMessage());
     }
 }

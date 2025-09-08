@@ -18,7 +18,7 @@ public class ParkingLot {
 
     public Ticket park(Car car) {
         if(parkedCars.size()>=this.capacity){
-            return null;
+            throw new RuntimeException("No available position.");
         }
         Ticket ticket=new Ticket();
         this.parkedCars.put(ticket,car);
