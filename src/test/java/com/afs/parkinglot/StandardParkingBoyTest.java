@@ -46,26 +46,26 @@ public class StandardParkingBoyTest {
     }
 
     @Test
-    public void should_return_null_when_fetch_car_given_parking_lot_with_parked_car_parking_boy_and_wrong_ticket() {
+    public void should_return_error_message_when_fetch_car_given_parking_lot_with_parked_car_parking_boy_and_wrong_ticket() {
         ParkingLot parkingLot = new ParkingLot();
         StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
         Car car = new Car("AAA1234");
         parkingBoy.park(car);
         Ticket wrongTicket=new Ticket();
         RuntimeException exception = assertThrows(RuntimeException.class,
-                () -> parkingLot.fetch(wrongTicket));
+                () -> parkingBoy.fetch(wrongTicket));
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
     @Test
-    public void should_return_null_when_fetch_car_given_parking_lot_parking_boy_and_used_ticket() {
+    public void should_return_error_message_when_fetch_car_given_parking_lot_parking_boy_and_used_ticket() {
         ParkingLot parkingLot = new ParkingLot();
         StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLot);
         Car car = new Car("AAA1234");
         Ticket ticket = parkingBoy.park(car);
         parkingBoy.fetch(ticket);
         RuntimeException exception = assertThrows(RuntimeException.class,
-                () -> parkingLot.fetch(ticket));
+                () -> parkingBoy.fetch(ticket));
         assertEquals("Unrecognized parking ticket.", exception.getMessage());
     }
 
@@ -79,7 +79,7 @@ public class StandardParkingBoyTest {
         Car carB=new Car(carPlateB);
         parkingBoy.park(carA);
         RuntimeException exception = assertThrows(RuntimeException.class,
-                () -> parkingLot.park(carB));
+                () -> parkingBoy.park(carB));
         assertEquals("No available position.", exception.getMessage());
     }
 
@@ -127,5 +127,47 @@ public class StandardParkingBoyTest {
         Car parkedCarB=parkingBoy.fetch(ticketB);
         assertEquals(carA,parkedCarA);
         assertEquals(carB,parkedCarB);
+    }
+
+    @Test
+    public void should_return_error_message_when_fetch_car_given_standard_parking_boy_manage_two_parking_lots_and_unrecognized_ticket() {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLotA,parkingLotB);
+        Ticket unrecognizedTicket = new Ticket();
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> parkingBoy.fetch(unrecognizedTicket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_return_error_message_when_fetch_car_given_standard_parking_boy_manage_two_parking_lots_and_used_ticket() {
+        ParkingLot parkingLotA = new ParkingLot();
+        ParkingLot parkingLotB = new ParkingLot();
+        StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLotA,parkingLotB);
+        Car car = new Car("AAA1234");
+        Ticket ticket = parkingBoy.park(car);
+        parkingBoy.fetch(ticket);
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> parkingBoy.fetch(ticket));
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_return_error_message_when_park_car_given_standard_parking_boy_manage_two_parking_lots_both_without_any_position_and_car() {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLotA,parkingLotB);
+        String carPlateA="AAA1234";
+        String carPlateB="BBB1234";
+        String carPlateC="CCC1234";
+        Car carA=new Car(carPlateA);
+        Car carB=new Car(carPlateB);
+        Car carC=new Car(carPlateC);
+        parkingBoy.park(carA);
+        parkingBoy.park(carB);
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> parkingBoy.park(carC));
+        assertEquals("No available position.", exception.getMessage());
     }
 }

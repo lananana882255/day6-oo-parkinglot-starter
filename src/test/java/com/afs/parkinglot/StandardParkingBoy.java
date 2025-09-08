@@ -9,10 +9,6 @@ public class StandardParkingBoy {
     private ParkingLot parkingLot;
     private List<ParkingLot> parkingLotList;
 
-    public StandardParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot=parkingLot;
-    }
-
     public StandardParkingBoy(ParkingLot... parkingLots) {
         this.parkingLotList= Arrays.asList(parkingLots);
     }
@@ -24,7 +20,7 @@ public class StandardParkingBoy {
             } catch (RuntimeException e) {
             }
         }
-        return null;
+        throw new RuntimeException("No available position.");
     }
 
     public Car fetch(Ticket ticket) {
@@ -34,7 +30,7 @@ public class StandardParkingBoy {
             } catch (RuntimeException e) {
             }
         }
-        return null;
+        throw new RuntimeException("Unrecognized parking ticket.");
     }
 
 
