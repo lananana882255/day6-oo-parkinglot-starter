@@ -1,13 +1,10 @@
 package com.afs.parkinglot;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StandardParkingBoy {
-    private ParkingLot parkingLot;
-    private List<ParkingLot> parkingLotList;
+    protected List<ParkingLot> parkingLotList;
 
     public StandardParkingBoy(ParkingLot... parkingLots) {
         this.parkingLotList= Arrays.asList(parkingLots);
@@ -32,6 +29,4 @@ public class StandardParkingBoy {
         }
         throw new RuntimeException("Unrecognized parking ticket.");
     }
-
-
 }
