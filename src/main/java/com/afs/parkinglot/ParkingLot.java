@@ -35,4 +35,8 @@ public class ParkingLot {
         }
         return fetchCar;
     }
+
+    public int getAvailablePositionCount() {
+        return capacity-parkedCars.size();
+    }
 }
