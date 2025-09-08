@@ -29,7 +29,10 @@ public class ParkingLot {
         if (ticket == null) {
             return null;
         }
-
-        return parkedCars.remove(ticket);
+        Car fetchCar = parkedCars.remove(ticket);
+        if(fetchCar==null){
+            throw new RuntimeException("Unrecognized parking ticket.");
+        }
+        return fetchCar;
     }
 }
