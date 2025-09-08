@@ -12,4 +12,8 @@ public class ParkingLot {
         this.parkedCars.put(ticket,car);
         return ticket;
     }
+
+    public Car fetch(Ticket ticket) {
+        return parkedCars.get(ticket);
+    }
 }
