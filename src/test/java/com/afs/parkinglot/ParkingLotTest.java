@@ -56,6 +56,7 @@ public class ParkingLotTest {
         Car parkedCar = parkingLot.fetch(wrongTicket);
         assertNull(parkedCar);
     }
+
     @Test
     public void should_return_null_when_fetch_car_given_parking_lot_and_used_ticket() {
         ParkingLot parkingLot = new ParkingLot();
@@ -64,5 +65,16 @@ public class ParkingLotTest {
         parkingLot.fetch(ticket);
         Car fetchedCar = parkingLot.fetch(ticket);
         assertNull(fetchedCar);
+    }
+
+    @Test
+    public void should_return_null_when_park_car_given_parking_lot_without_any_position_and_car(){
+        ParkingLot parkingLot= new ParkingLot(1);
+        String carPlateA="AAA1234";
+        String carPlateB="BBB1234";
+        Car carA=new Car(carPlateA);
+        Car carB=new Car(carPlateB);
+        parkingLot.park(carA);
+        assertNull(parkingLot.park(carB));
     }
 }

@@ -5,9 +5,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLot {
-    private final int capacity=10;
+    private final int capacity;
     private Map<Ticket, Car> parkedCars = new HashMap<>();
+
+    public ParkingLot() {
+        this.capacity=10;
+    }
+
+    public ParkingLot(int capacity) {
+        this.capacity=capacity;
+    }
+
     public Ticket park(Car car) {
+        if(parkedCars.size()>=this.capacity){
+            return null;
+        }
         Ticket ticket=new Ticket();
         this.parkedCars.put(ticket,car);
         return ticket;
