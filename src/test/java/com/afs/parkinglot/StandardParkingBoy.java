@@ -28,7 +28,13 @@ public class StandardParkingBoy {
     }
 
     public Car fetch(Ticket ticket) {
-        return this.parkingLot.fetch(ticket);
+        for(ParkingLot parkingLot: parkingLotList){
+            try {
+                return parkingLot.fetch(ticket);
+            } catch (RuntimeException e) {
+            }
+        }
+        return null;
     }
 
 
