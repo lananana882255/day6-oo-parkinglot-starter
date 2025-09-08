@@ -94,6 +94,21 @@ public class StandardParkingBoyTest {
         assertNotNull(ticket);
         assertEquals(0,parkingLotA.getAvailablePositionCount());
         assertEquals(1,parkingLotB.getAvailablePositionCount());
+    }
 
+    @Test
+    public void should_park_to_second_parking_lot_when_park_car_given_standard_parking_boy_manage_two_parking_lots_only_second_parkinglot_with_available_position_and_car(){
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        StandardParkingBoy parkingBoy = new StandardParkingBoy(parkingLotA,parkingLotB);
+        String carPlateA="AAA1234";
+        String carPlateB="BBB1234";
+        Car carA = new Car(carPlateA);
+        Car carB = new Car(carPlateB);
+        parkingBoy.park(carA);
+        Ticket ticket=parkingBoy.park(carB);
+        assertNotNull(ticket);
+        assertEquals(0,parkingLotA.getAvailablePositionCount());
+        assertEquals(0,parkingLotB.getAvailablePositionCount());
     }
 }
